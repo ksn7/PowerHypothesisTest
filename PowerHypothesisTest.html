@@ -52,27 +52,34 @@ def calc_power( hyp_mu = input_box( default = 142, label = "hypothesized mean", 
         threshold = input_box( default = 0.05, label = "threshold probability", width = 5),
         x_min = input_box( default = 120, label = "x min", width = 5),
         x_max = input_box( default = 165, label = "x max", width = 5) ) :
-            
+    
+    # Set up for graphing Normal Distributions and calculating their probabilities        
     normalDensity(x, mu, sig) = 1/(sqrt(2*pi)*sig)*exp(-(x-mu)^2/(2*sig^2))
     normalCDF(x, mu, sig) = (1+erf((x-mu)/(sig*sqrt(2))))/2
 
+    # Set the threshold on the appropriate side of the graph - ex 0.05 on the top or bottom
     if hyp_mu < act_mu :
         threshold = 1 - threshold
 
+    # Find the value at the threshold, future use for graphing
     value = find_root( normalCDF(x, hyp_mu, std_dev/sqrt(sample) ) - threshold, x_min, x_max )
 
+    # Set up and graph the hypothesized distribution
     hyp_dist = normalDensity(x, hyp_mu, std_dev/sqrt(sample))
     graph = plot(hyp_dist, x_min, x_max, color = "blue")
 
+    # Set up and graph the actual distribution - plot with correct filled area
     act_dist = normalDensity(x, act_mu, std_dev/sqrt(sample))
     if hyp_mu > act_mu :
         graph += plot(act_dist, x_min, value, color = "red", fill = True) + plot(act_dist, value, x_max, color = "red")
     else:
         graph += plot(act_dist, x_min, value, color = "red") + plot(act_dist, value, x_max, color = "red", fill = True )
 
+    # Calculate and print the power
     power = 1 - normalCDF( value, act_mu, std_dev/sqrt(sample) )
     print "The power is " + str(power.n()) + "."
 
+    # Show the graph
     graph.show()
 
 </script>

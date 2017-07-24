@@ -112,7 +112,7 @@ def calc_power( hyp_mu = input_box( default = 142, label = "hypothesized mean", 
         else:
             power = normalCDF( value1, act_mu, std_dev/sqrt(sample) ) + (1 - normalCDF( value2, hyp_mu, std_dev/sqrt(sample) ))
             
-    print "The power is " + str(power.n()) + "."
+    pretty_print( "The power is " + str(power.n()) + "." )
 
     # Show the graph
     graph.show()
@@ -121,7 +121,7 @@ def calc_power( hyp_mu = input_box( default = 142, label = "hypothesized mean", 
 </div>
 
 <hr>
-Last modified on July 19th, 2017.
+Last modified on July 24th, 2017.
 </body>
 </html>
 

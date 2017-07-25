@@ -73,9 +73,9 @@ def calc_power( hyp_mu = input_box( default = 142, label = "hypothesized mean", 
         # Set up and graph the actual distribution - plot with correct filled area
         act_dist = normalDensity(x, act_mu, std_dev/sqrt(sample))
         if hyp_mu > act_mu :
-            graph += plot(act_dist, x_min, value, color = "red", fill = True) + plot(act_dist, value, x_max, color = "red")
+            graph += plot(act_dist, x_min, value, color = "red", fill = True, fillcolor = "#ff9999") + plot(act_dist, value, x_max, color = "red")
         else:
-            graph += plot(act_dist, x_min, value, color = "red") + plot(act_dist, value, x_max, color = "red", fill = True )
+            graph += plot(act_dist, x_min, value, color = "red") + plot(act_dist, value, x_max, color = "red", fill = True, fillcolor = "#ff9999" )
             
         # Calculate and print the power
         power = 1 - normalCDF( value, act_mu, std_dev/sqrt(sample) )
@@ -92,19 +92,19 @@ def calc_power( hyp_mu = input_box( default = 142, label = "hypothesized mean", 
         # Set up and graph the hypothesized distribution
         hyp_dist = normalDensity(x, hyp_mu, std_dev/sqrt(sample))
         graph = plot(hyp_dist, x_min, x_max, color = "blue")
-        if hyp_mu < act_mu :
-            graph += plot(hyp_dist, x_min, value1, color = "blue", fill = True )
-        else :
-            graph += plot(hyp_dist, value2, x_max, color = "blue", fill = True )            
+        graph += line([(x_min, 0.01), (value1, 0.01)], marker = "|") 
+        graph += line([(value2, 0.01), (x_max, 0.01)], marker = "|")          
             
         # Set up and graph the actual distribution - plot with correct filled area
         act_dist = normalDensity(x, act_mu, std_dev/sqrt(sample))
         if hyp_mu > act_mu :
-            graph += plot( act_dist, x_min, value1, color = "red", fill = True )
+            graph += plot( act_dist, x_min, value1, color = "red", fill = True, fillcolor = "#ff9999" )
             graph += plot( act_dist, x_min, x_max, color = "red" )
+            graph += plot( act_dist, value2, x_max, color = "red", fill = True, fillcolor = "#ff9999" )
         else:
-            graph += plot( act_dist, value2, x_max, color = "red", fill = True )
+            graph += plot( act_dist, value2, x_max, color = "red", fill = True, fillcolor = "#ff9999" )
             graph += plot( act_dist, x_min, x_max, color = "red" )
+            graph += plot( act_dist, x_min, value1, color = "red", fill = True, fillcolor = "#ff9999" )
         
         # Calculate and print the power
         if hyp_mu < act_mu :
@@ -121,7 +121,7 @@ def calc_power( hyp_mu = input_box( default = 142, label = "hypothesized mean", 
 </div>
 
 <hr>
-Last modified on July 24th, 2017.
+Last modified on July 25th, 2017.
 </body>
 </html>
 
